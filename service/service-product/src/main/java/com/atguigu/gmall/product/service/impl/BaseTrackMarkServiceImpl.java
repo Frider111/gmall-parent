@@ -3,6 +3,7 @@ package com.atguigu.gmall.product.service.impl;
 import com.atguigu.gmall.model.product.BaseTrademark;
 import com.atguigu.gmall.product.mapper.BaseTrademarkMapper;
 import com.atguigu.gmall.product.service.TrackMarkService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,14 @@ public class BaseTrackMarkServiceImpl implements TrackMarkService {
 
         return baseTrademarkMapper.selectList(null);
 
+    }
+
+    /**
+     * 分页查询品牌数据
+     * @param page1
+     */
+    @Override
+    public void baseTrademark(Page<BaseTrademark> page1) {
+        baseTrademarkMapper.selectPage(page1,null);
     }
 }

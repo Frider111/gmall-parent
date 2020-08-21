@@ -17,6 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 public class FileUploadController {
 
+    /**
+     * 上传图片的方法
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @PostMapping("fileUpload")
     public Result<String> fileUpload(MultipartFile file) throws Exception{
         String imageUrl = FastdfsUtil.uploadImg(file);

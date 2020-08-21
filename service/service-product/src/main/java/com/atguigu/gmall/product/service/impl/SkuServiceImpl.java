@@ -65,6 +65,10 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
         return isSkuinfo && isSkuAttrValue && isSkuSaleAttrValue && isSkuImage;
     }
 
+    /**
+     * 分页获取sku集合数据
+     * @param page1
+     */
     @Override
     public void listSku(Page<SkuInfo> page1) {
 
@@ -72,6 +76,9 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
 
     }
 
+    /*
+    根据 skuId 进行上架处理
+     */
     @Override
     public boolean onSale(Long skuId) {
 
@@ -82,6 +89,11 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
         return false;
     }
 
+    /**
+     * 根据 skuId 进行下架处理
+     * @param skuId
+     * @return
+     */
     @Override
     public boolean cancelSale(Long skuId) {
         int i = this.baseMapper.cancelSale(skuId);
