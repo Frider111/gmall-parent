@@ -1,0 +1,26 @@
+package com.atguigu.gmall.product.controller;
+
+import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.common.util.FastdfsUtil;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+/**
+ * @author abt
+ * @date 2020/8/21 - 15:00
+ */
+@RestController
+@RequestMapping("admin/product")
+@CrossOrigin
+public class FileUploadController {
+
+    @PostMapping("fileUpload")
+    public Result<String> fileUpload(MultipartFile file) throws Exception{
+        String imageUrl = FastdfsUtil.uploadImg(file);
+        return Result.ok(imageUrl);
+    }
+
+}

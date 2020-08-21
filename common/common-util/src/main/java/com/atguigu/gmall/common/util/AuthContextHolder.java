@@ -3,6 +3,7 @@ package com.atguigu.gmall.common.util;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AuthContextHolder {
 

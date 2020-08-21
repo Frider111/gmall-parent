@@ -6,10 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Data
 @ApiModel(description = "商品一级分类")
 @TableName("base_category1")
+@EnableSwagger2
 public class BaseCategory1 extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

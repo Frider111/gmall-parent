@@ -47,7 +47,7 @@ public class Result<T> {
 
     public Result(){}
 
-    // 返回数据
+    // 返回数据 , 传入一个对象,传入到data中(前提对象不等于null)
     protected static <T> Result<T> build(T data) {
         Result<T> result = new Result<T>();
         if (data != null)
@@ -55,6 +55,7 @@ public class Result<T> {
         return result;
     }
 
+    // 传入对象的时候,兵器设置编码
     public static <T> Result<T> build(T body, ResultCodeEnum resultCodeEnum) {
         Result<T> result = build(body);
         result.setCode(resultCodeEnum.getCode());
@@ -62,6 +63,7 @@ public class Result<T> {
         return result;
     }
 
+    // 成功执行的方法
     public static<T> Result<T> ok(){
         return Result.ok(null);
     }
@@ -77,6 +79,7 @@ public class Result<T> {
         return build(data, ResultCodeEnum.SUCCESS);
     }
 
+    // 获取数据失败的结果集
     public static<T> Result<T> fail(){
         return Result.fail(null);
     }
@@ -92,16 +95,19 @@ public class Result<T> {
         return build(data, ResultCodeEnum.FAIL);
     }
 
+    // 设置消息数据
     public Result<T> message(String msg){
         this.setMessage(msg);
         return this;
     }
 
+//    设置编码
     public Result<T> code(Integer code){
         this.setCode(code);
         return this;
     }
 
+//    判断是否成功
     public boolean isOk() {
         if(this.getCode().intValue() == ResultCodeEnum.SUCCESS.getCode().intValue()) {
             return true;

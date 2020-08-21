@@ -23,10 +23,14 @@
     </modules>
 
     <dependencies>
+<!--        Spring boot 启动类-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+
+
 
         <!--lombok用来简化实体类：需要安装lombok插件-->
         <dependency>
@@ -62,7 +66,7 @@
         <!--<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
         <!--</dependency>-->
 
-        <!-- 流量控制-->
+        <!-- 流量控制    -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
@@ -73,6 +77,8 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.10</version>
         </dependency>
+
+
 
     </dependencies>
 
