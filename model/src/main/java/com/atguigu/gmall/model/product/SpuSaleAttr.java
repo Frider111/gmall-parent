@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class SpuSaleAttr extends BaseEntity {
 
 	// 销售属性对象集合 业务所需 销售属性：销售属性值  1： n
 	@TableField(exist = false)
-	List<SpuSaleAttrValue> spuSaleAttrValueList;
+	List<SpuSaleAttrValue> spuSaleAttrValueList = new ArrayList<>();
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;

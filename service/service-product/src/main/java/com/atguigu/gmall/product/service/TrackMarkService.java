@@ -14,4 +14,6 @@ public interface TrackMarkService {
     List<BaseTrademark> getTrademarkList();
 
     void baseTrademark(Page<BaseTrademark> page1);
+
+    BaseTrademark getTrademark(Long tmId);
 }

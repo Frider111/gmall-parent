@@ -41,7 +41,7 @@ public class SpuSaleAttrValue extends BaseEntity {
 //	@TableField("sale_attr_name")
 //	String isChecked;
 	@TableField(exist = false)
-	String isChecked;
+	private String isChecked;
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;

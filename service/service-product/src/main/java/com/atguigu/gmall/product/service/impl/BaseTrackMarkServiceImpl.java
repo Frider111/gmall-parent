@@ -38,4 +38,9 @@ public class BaseTrackMarkServiceImpl implements TrackMarkService {
     public void baseTrademark(Page<BaseTrademark> page1) {
         baseTrademarkMapper.selectPage(page1,null);
     }
+
+    @Override
+    public BaseTrademark getTrademark(Long tmId) {
+        return baseTrademarkMapper.selectById(tmId);
+    }
 }

@@ -24,4 +24,6 @@ public interface SpuService extends IService<SpuInfo> {
     List<SpuImage> spuImageList(Long spuId);
 
     List<SpuSaleAttr> spuSaleAttrList(Long spuId);
+
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) throws Exception;
 }

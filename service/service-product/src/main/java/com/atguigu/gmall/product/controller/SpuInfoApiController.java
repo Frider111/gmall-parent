@@ -1,12 +1,11 @@
 package com.atguigu.gmall.product.controller;
 
-import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.product.common.result.Result;
 import com.atguigu.gmall.model.product.BaseSaleAttr;
 import com.atguigu.gmall.model.product.SpuImage;
 import com.atguigu.gmall.model.product.SpuInfo;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
 import com.atguigu.gmall.product.service.SpuService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +40,7 @@ public class SpuInfoApiController {
         Page<SpuInfo> page1 = new Page<>(page, limit);
         // 对分页对象进行设置结果集
         spuService.listSpu(page1,category3Id);
+
         return Result.ok(page1);
     }
 

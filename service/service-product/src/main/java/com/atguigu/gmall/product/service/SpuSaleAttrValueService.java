@@ -1,6 +1,5 @@
 package com.atguigu.gmall.product.service;
 
-import com.atguigu.gmall.model.product.SpuSaleAttr;
 import com.atguigu.gmall.model.product.SpuSaleAttrValue;
 import com.baomidou.mybatisplus.extension.service.IService;
 

@@ -1,6 +1,6 @@
 package com.atguigu.gmall.product.controller;
 
-import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.product.common.result.Result;
 import com.atguigu.gmall.model.product.BaseCategory1;
 import com.atguigu.gmall.model.product.BaseCategory2;
 import com.atguigu.gmall.model.product.BaseCategory3;

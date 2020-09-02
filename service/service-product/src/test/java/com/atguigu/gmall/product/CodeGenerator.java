@@ -9,12 +9,18 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author abt
  * @date 2020/8/21 - 18:10
  */
 public class CodeGenerator {
+
+
+
 
     public static void main(String[] args) {
 

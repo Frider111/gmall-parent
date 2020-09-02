@@ -1,17 +1,29 @@
 package com.atguigu.gmall.product.service.impl;
 
-import com.atguigu.gmall.model.product.*;
+import com.atguigu.gmall.list.client.ListFeignClient;
+import com.atguigu.gmall.product.common.aspect.GmallCache;
+import com.atguigu.gmall.product.common.aspect.GmallParam;
+import com.atguigu.gmall.product.common.constant.RedisConst;
 import com.atguigu.gmall.product.mapper.SkuInfoMapper;
+import com.atguigu.gmall.product.mapper.SkuSaleAttrValueMapper;
+import com.atguigu.gmall.model.product.SkuAttrValue;
+import com.atguigu.gmall.model.product.SkuImage;
+import com.atguigu.gmall.model.product.SkuInfo;
+import com.atguigu.gmall.model.product.SkuSaleAttrValue;
 import com.atguigu.gmall.product.service.SkuAttrValueService;
 import com.atguigu.gmall.product.service.SkuImageService;
 import com.atguigu.gmall.product.service.SkuSaleAttrValueService;
 import com.atguigu.gmall.product.service.SkuService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author abt
@@ -28,6 +40,12 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
 
     @Autowired
     private SkuImageService skuImageService;
+
+    @Autowired
+    private SkuSaleAttrValueMapper skuSaleAttrValueMapper;
+
+    @Autowired
+    ListFeignClient listFeignClient;
 
     /**
      * 根据 skuInfo 添加数据
@@ -73,6 +91,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
     public void listSku(Page<SkuInfo> page1) {
 
         this.page(page1);
+//        this.baseMapper.selectPage(page1,null);
 
     }
 
@@ -84,6 +103,7 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
 
         int i = this.baseMapper.onSale(skuId);
         if (i > 0 ){
+            listFeignClient.onSale(skuId);
             return true;
         }
         return false;
@@ -98,10 +118,85 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
     public boolean cancelSale(Long skuId) {
         int i = this.baseMapper.cancelSale(skuId);
         if (i > 0 ){
+            listFeignClient.cancelSale(skuId);
             return true;
         }
         return false;
     }
 
+    /**
+     * 获取skuInfo 数据
+     * @param skuId
+     * @return
+     */
+    @Override
+    @GmallCache(prefix = RedisConst.SKUKEY_PREFIX,suffix = RedisConst.SKUKEY_SUFFIX)
+    public SkuInfo getSkuInfo(@GmallParam Long skuId) {
 
+        SkuInfo skuinfo = this.getById(skuId);
+        // 获取 SkuAttrValue 集合数据
+        QueryWrapper<SkuAttrValue> skuAttrValueQueryWrapper = new QueryWrapper<>();
+        skuAttrValueQueryWrapper.eq("sku_id", skuId);
+        List<SkuAttrValue> skuAttrValues = skuAttrValueService.list(skuAttrValueQueryWrapper);
+        skuinfo.setSkuAttrValueList(skuAttrValues);
+        // 获取 SkuSaleAttrValue 集合数据
+        QueryWrapper<SkuSaleAttrValue> skuSaleAttrValueQueryWrapper = new QueryWrapper<>();
+        skuSaleAttrValueQueryWrapper.eq("sku_id", skuId);
+        List<SkuSaleAttrValue> skuSaleAttrValues = skuSaleAttrValueService.list(skuSaleAttrValueQueryWrapper);
+        skuinfo.setSkuSaleAttrValueList(skuSaleAttrValues);
+        // 获取 skuImage 集合数据
+        QueryWrapper<SkuImage> skuImageQueryWrapper = new QueryWrapper<>();
+        skuImageQueryWrapper.eq("sku_id", skuId);
+        List<SkuImage> skuImages = skuImageService.list(skuImageQueryWrapper);
+        skuinfo.setSkuImageList(skuImages);
+        // 返回数据
+        return skuinfo;
+    }
+
+    /**
+     * 获取价格信息
+     * @param skuId 获取skuPrice价格信息
+     * @return
+     */
+    @Override
+    public BigDecimal getSkuPrice(Long skuId) {
+
+        BigDecimal skuPrice = this.baseMapper.getSkuPrice(skuId);
+        if(skuPrice==null){
+            return new BigDecimal(0);
+        }
+        return skuPrice;
+    }
+    @GmallCache(prefix = "product:",suffix = RedisConst.SKUKEY_SUFFIX)
+    @Override
+    public List<SkuSaleAttrValue> getSkuSaleAttrValueListBySpu(@GmallParam Long skuId,@GmallParam Long spuId) {
+
+        QueryWrapper<SkuSaleAttrValue> skuAttrValuequeryWrapper =  new QueryWrapper<>();
+        skuAttrValuequeryWrapper.eq("spu_Id", spuId);
+        skuAttrValuequeryWrapper.eq("sKu_Id", skuId);
+
+        List<SkuSaleAttrValue> skuAttrValues = skuSaleAttrValueService.list(skuAttrValuequeryWrapper);
+        return skuAttrValues;
+    }
+
+    /**
+     * 根据spuI的集合 做出以 sku 对应的所有属性集合拼接成key ，通过 key 寻找到 skuId
+     * 选择属性的时候，可以通过属性值，同时更新 skuId 在属性页面
+     * @param spuId
+     * @return
+     */
+    @GmallCache(prefix = RedisConst.SKUKEY_PREFIX,suffix = "valuemap")
+    @Override
+    public Map<String, String> getSkuValueIdsMap(Long spuId) {
+        // 封装的 map 集合 key value 在方法上面有解释
+        Map<String,String> skuValueIdMap = new HashMap<>();
+        // sql 返回的 List map 数据 ，取出 map 数据 进行 返回值 map 封装
+        List<Map<String, Object>> skuValueIdsMaps = skuSaleAttrValueMapper.getSkuValueIdsMap(spuId);
+
+        for (Map<String, Object> skuValueMap : skuValueIdsMaps) {
+            skuValueIdMap.put(skuValueMap.get("skuValue")+"",skuValueMap.get("sku_id")+"");
+        }
+        
+        return skuValueIdMap;
+    }
 }

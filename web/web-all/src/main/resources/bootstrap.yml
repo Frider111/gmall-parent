@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: WEB-ALL
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.17.111:8848
+#        namespace: 47b7456f-2c3d-4ac9-b13e-3fddbe5445cb
+      config:
+        server-addr: 192.168.17.111:8848
+#        namespace: 47b7456f-2c3d-4ac9-b13e-3fddbe5445cb
+        file-extension: yaml
+#  profiles:
+#    active: dev
+feign:
+  client:
+    config:
+      default:
+        readTimeout: 300000
+        connecTimeout: 300000
+#  hystrix:
+#    enabled: true

@@ -1,9 +1,10 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.atguigu.gmall.product.mapper.BaseAttrInfoMapper;
 import com.atguigu.gmall.model.product.BaseAttrInfo;
 import com.atguigu.gmall.model.product.BaseAttrValue;
-import com.atguigu.gmall.product.mapper.BaseAttrInfoMapper;
-import com.atguigu.gmall.product.mapper.BaseAttrValueMapper;
+import com.atguigu.gmall.product.mapper.BaseSaleAttrMapper;
 import com.atguigu.gmall.product.service.BaseAttrInfoService;
 import com.atguigu.gmall.product.service.BaseAttrValueService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +25,9 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper,Base
 
     @Autowired
     private BaseAttrValueService baseAttrValueService;
+
+    @Autowired
+    BaseAttrInfoMapper baseAttrInfoMapper;
 
 
     /**
@@ -119,5 +123,10 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper,Base
         valueQueryWrapper.eq("attr_id", attrId);
         List<BaseAttrValue> baseAttrValues = baseAttrValueService.list(valueQueryWrapper);
         return baseAttrValues;
+    }
+
+    @Override
+    public List<BaseAttrInfo> getAttrList(Long skuId) {
+        return baseAttrInfoMapper.getAttrList(skuId);
     }
 }

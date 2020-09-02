@@ -1,9 +1,12 @@
 package com.atguigu.gmall.product.service.impl;
 
 import com.atguigu.gmall.model.product.*;
+import com.atguigu.gmall.product.common.aspect.GmallCache;
+import com.atguigu.gmall.product.common.aspect.GmallParam;
+import com.atguigu.gmall.product.common.constant.RedisConst;
 import com.atguigu.gmall.product.mapper.BaseSaleAttrMapper;
-import com.atguigu.gmall.product.mapper.SpuImageMapper;
 import com.atguigu.gmall.product.mapper.SpuMapper;
+import com.atguigu.gmall.product.mapper.SpuSaleAttrMapper;
 import com.atguigu.gmall.product.service.SpuImageService;
 import com.atguigu.gmall.product.service.SpuSaleAttrService;
 import com.atguigu.gmall.product.service.SpuSaleAttrValueService;
@@ -15,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ import java.util.List;
  * @date 2020/8/19 - 14:42
  */
 @Service
-public class SpuServiceImpl extends ServiceImpl<SpuMapper,SpuInfo> implements SpuService {
+public class SpuServiceImpl extends ServiceImpl<SpuMapper, SpuInfo> implements SpuService {
 
     @Autowired
     private BaseSaleAttrMapper baseSaleAttrMapper;
@@ -36,6 +38,9 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper,SpuInfo> implements Sp
 
     @Autowired
     private SpuImageService spuImageService;
+
+    @Autowired
+    private SpuSaleAttrMapper spuSaleAttrMapper;
 
 
     @Override
@@ -130,5 +135,58 @@ public class SpuServiceImpl extends ServiceImpl<SpuMapper,SpuInfo> implements Sp
         
         return spuSaleAttrs;
     }
+
+    @GmallCache(prefix = "spu:",suffix = ":saleattr")
+    @Override
+    public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(@GmallParam Long skuId, @GmallParam Long spuId) throws Exception {
+
+        return spuSaleAttrMapper.getSpuSaleAttrListCheckBySku1(skuId,spuId);
+    }
+
+//    /**
+//     * 换成另一个牛逼的了
+//     * 根据 skuId 跟 spuId 获取 SpuSaleAttr 销售属性的集合
+//     * 如果 spu_attr_value 数据跟 skuSaleAttrValue 中可以关联上 icCheck 赋值等于1 【spu_sale_attr_value.id == sku.sale_attr_value_id】
+//     *
+//     * @param skuId
+//     * @param spuId
+//     * @return
+//     */
+//    @Override
+//    public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
+//
+//        // 先查询一波 SpuSaleAttr 集合数据 【根据spuId】
+//        QueryWrapper<SpuSaleAttr> spuSaleAttrQueryWrapper = new QueryWrapper<>();
+//        spuSaleAttrQueryWrapper.eq("spu_id", spuId);
+//        List<SpuSaleAttr> spuSaleAttrs = spuSaleAttrService.list(spuSaleAttrQueryWrapper);
+//
+//        // 获取 spuSaleAttrValues 集合数据 ，如果可以关联上 isCheck 赋值等于 1
+//        List<SpuSaleAttrValue> spuSaleAttrValues = spuSaleAttrMapper.getSpuSaleAttrListCheckBySku(skuId, spuId);
+//
+//        Map<String,SpuSaleAttr> spuSaleAttrMap = new HashMap<>();
+//
+//        // 先把 spuSaleAttrs 封装到 map 里面 ，避免双重 for 循环查询 SpuSaleAttrValue 数据 【影响性能】
+//        for (SpuSaleAttr spuSaleAttr : spuSaleAttrs) {
+//            // 因为需要两个键值 封装数据，所以用中间随机一个字符串连接数据，避免数据冲突
+//            spuSaleAttrMap.put(spuSaleAttr.getSpuId()+"concat"+spuSaleAttr.getBaseSaleAttrId(),spuSaleAttr);
+//        }
+//
+//        // 根据 SpuSaleAttrValue 以同样规则设置 key 值，通过 key 获取spuSaleAttr对象，在通过对象进行 SaleAttrValueList 数据添加
+//        for (SpuSaleAttrValue spuSaleAttrValue : spuSaleAttrValues) {
+//
+//            SpuSaleAttr spuSaleAttr = spuSaleAttrMap.get(spuSaleAttrValue.getSpuId() + "concat" + spuSaleAttrValue.getBaseSaleAttrId());
+//            spuSaleAttr.getSpuSaleAttrValueList().add(spuSaleAttrValue);
+//        }
+//
+////        双重循环解决数据封装问题
+////        for (int i = 0; i < spuSaleAttrs.size(); i++) {
+////            for (int j = 0; j < spuSaleAttrValues.size(); j++) {
+////                if(spuSaleAttrs.get(i).getBaseSaleAttrId() == spuSaleAttrValues.get(j).getBaseSaleAttrId()){
+////                    spuSaleAttrs.get(i).getSpuSaleAttrValueList().add(spuSaleAttrValues.get(j));
+////                }
+////            }
+////        }
+//        return spuSaleAttrs;
+//    }
 
 }
