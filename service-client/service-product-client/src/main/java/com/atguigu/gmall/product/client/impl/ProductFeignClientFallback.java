@@ -2,7 +2,7 @@ package com.atguigu.gmall.product.client.impl;
 
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.client.ProductFeignClient;
-import com.atguigu.gmall.product.common.result.Result;
+import com.atguigu.gmall.common.result.Result;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

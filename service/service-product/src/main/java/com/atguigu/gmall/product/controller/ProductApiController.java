@@ -2,7 +2,7 @@ package com.atguigu.gmall.product.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.gmall.model.product.*;
-import com.atguigu.gmall.product.common.result.Result;
+import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -134,6 +134,12 @@ public class ProductApiController{
      */
     @GetMapping("inner/getAttrList/{skuId}")
     List<BaseAttrInfo> getAttrList(@PathVariable("skuId") Long skuId){
+        return baseAttrInfoService.getAttrList(skuId);
+    }
+
+
+    @GetMapping("auth/getAttrList/{skuId1}")
+    List<BaseAttrInfo> getAttrList1(@PathVariable("skuId1") Long skuId){
         return baseAttrInfoService.getAttrList(skuId);
     }
 

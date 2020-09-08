@@ -8,7 +8,7 @@ import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.model.product.SkuSaleAttrValue;
 import com.atguigu.gmall.model.product.SpuSaleAttr;
 import com.atguigu.gmall.product.client.ProductFeignClient;
-import com.atguigu.gmall.product.common.time.GmallChangeTime;
+import com.atguigu.gmall.common.time.GmallChangeTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +35,7 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ListFeignClient listFeignClient ;
 
+    @GmallChangeTime
     @Override
     public Map<String, Object> getBySkuId(Long skuId) throws Exception {
 //        return getBySkuId1(skuId);

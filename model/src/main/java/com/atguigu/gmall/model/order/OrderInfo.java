@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Data
 @ApiModel(description = "订单信息")
+@Accessors(chain = true)
 @TableName("order_info")
 public class OrderInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;

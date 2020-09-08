@@ -1,6 +1,6 @@
 package com.atguigu.gmall.product.controller;
 
-import com.atguigu.gmall.product.common.result.Result;
+import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.BaseTrademark;
 import com.atguigu.gmall.product.service.TrackMarkService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

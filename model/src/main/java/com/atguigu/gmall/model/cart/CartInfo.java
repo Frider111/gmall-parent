@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
 @Data
 @ApiModel(description = "购物车")
+@Accessors(chain = true)
 public class CartInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -49,67 +51,67 @@ public class CartInfo extends BaseEntity {
         return serialVersionUID;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public Long getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(Long skuId) {
-        this.skuId = skuId;
-    }
-
-    public BigDecimal getCartPrice() {
-        return cartPrice;
-    }
-
-    public void setCartPrice(BigDecimal cartPrice) {
-        this.cartPrice = cartPrice;
-    }
-
-    public Integer getSkuNum() {
-        return skuNum;
-    }
-
-    public void setSkuNum(Integer skuNum) {
-        this.skuNum = skuNum;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getSkuName() {
-        return skuName;
-    }
-
-    public void setSkuName(String skuName) {
-        this.skuName = skuName;
-    }
-
-    public Integer getIsChecked() {
-        return isChecked;
-    }
-
-    public void setIsChecked(Integer isChecked) {
-        this.isChecked = isChecked;
-    }
-
-    public BigDecimal getSkuPrice() {
-        return skuPrice;
-    }
-
-    public void setSkuPrice(BigDecimal skuPrice) {
-        this.skuPrice = skuPrice;
-    }
+//    public String getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(String userId) {
+//        this.userId = userId;
+//    }
+//
+//    public Long getSkuId() {
+//        return skuId;
+//    }
+//
+//    public void setSkuId(Long skuId) {
+//        this.skuId = skuId;
+//    }
+//
+//    public BigDecimal getCartPrice() {
+//        return cartPrice;
+//    }
+//
+//    public void setCartPrice(BigDecimal cartPrice) {
+//        this.cartPrice = cartPrice;
+//    }
+//
+//    public Integer getSkuNum() {
+//        return skuNum;
+//    }
+//
+//    public void setSkuNum(Integer skuNum) {
+//        this.skuNum = skuNum;
+//    }
+//
+//    public String getImgUrl() {
+//        return imgUrl;
+//    }
+//
+//    public void setImgUrl(String imgUrl) {
+//        this.imgUrl = imgUrl;
+//    }
+//
+//    public String getSkuName() {
+//        return skuName;
+//    }
+//
+//    public void setSkuName(String skuName) {
+//        this.skuName = skuName;
+//    }
+//
+//    public Integer getIsChecked() {
+//        return isChecked;
+//    }
+//
+//    public void setIsChecked(Integer isChecked) {
+//        this.isChecked = isChecked;
+//    }
+//
+//    public BigDecimal getSkuPrice() {
+//        return skuPrice;
+//    }
+//
+//    public void setSkuPrice(BigDecimal skuPrice) {
+//        this.skuPrice = skuPrice;
+//    }
 }

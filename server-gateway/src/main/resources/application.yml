@@ -1,0 +1,91 @@
+#  // 端口号
+server:
+  port: 80
+ # 应用程序名
+#  redis:  不要redis配置哦
+#    host: 192.168.200.128
+#    port: 6379
+#    database: 0
+#    timeout: 1800000
+#    password:
+spring:
+  cloud:
+    gateway:
+      discovery:      #是否与服务发现组件进行结合，通过 serviceId(必须设置成大写) 转发到具体的服务实例。默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能。
+        locator:      #路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问。
+          enabled: true
+      routes:
+        - id: service-product # 路由名字
+          uri: lb://SERVICE-PRODUCT  # 跳转路由服务名
+          predicates:
+            - Path=/*/product/** # 路径匹配
+        - id: service-item
+          uri: lb://SERVICE-ITEM
+          predicates:
+            - Path=/*/item/** # 路径匹配
+        - id: service-user
+          uri: lb://SERVICE-USER
+          predicates:
+            - Path=/*/user/**
+        - id: service-order
+          uri: lb://SERVICE-ORDER
+          predicates:
+            - Path=/*/order/**
+        - id: service-cart
+          uri: lb://SERVICE-CART
+          predicates:
+            - Path=/*/cart/**
+          filters:
+            - Login
+#          filters:
+##            - name: RequestRateLimiter #filter名称必须是RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 2 #允许用户每秒处理多少个请求
+#                redis-rate-limiter.burstCapacity: 2 #令牌桶的容量，允许在一秒钟内完成的最大请求数
+#                key-resolver: "#{@apiKeyResolver}" # 表示按照哪种算法来做限流！ ipKeyResolver 它表示class 的对象
+        #==================web前端==========================
+        - id: web-item # 商品详情
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=item.gmall.com # 通过域名访问
+        - id: web-index # 商品首页
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=www.gmall.com # 通过域名访问
+        - id: web-list # 商品检索
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=list.gmall.com # 通过域名访问
+        - id: web-passport # 登录
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=passport.gmall.com # 通过域名访问
+        - id: web-cart
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=cart.gmall.com
+          filters:
+            - Login
+        - id: web-order
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=order.gmall.com
+          filters:
+            - Login
+        - id: web-payment
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=payment.gmall.com
+        - id: web-activity
+          uri: lb://WEB-ALL
+          predicates:
+            - Host=activity.gmall.com
+# 验证url 用户如果未登录的情况下，不允许访问的哪些控制！
+authUrls:
+  url: trade.html,myOrder.html
+feign:
+  client:
+    config:
+      default:
+        readTimeout: 300000
+        connect-timeout: 300000

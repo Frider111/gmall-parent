@@ -1,9 +1,8 @@
 package com.atguigu.gmall.product.service.impl;
 
 import com.atguigu.gmall.model.product.*;
-import com.atguigu.gmall.product.common.aspect.GmallCache;
-import com.atguigu.gmall.product.common.aspect.GmallParam;
-import com.atguigu.gmall.product.common.constant.RedisConst;
+import com.atguigu.gmall.common.aspect.GmallCache;
+import com.atguigu.gmall.common.aspect.GmallParam;
 import com.atguigu.gmall.product.mapper.BaseSaleAttrMapper;
 import com.atguigu.gmall.product.mapper.SpuMapper;
 import com.atguigu.gmall.product.mapper.SpuSaleAttrMapper;

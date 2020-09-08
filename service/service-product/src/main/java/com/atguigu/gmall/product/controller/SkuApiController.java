@@ -1,6 +1,6 @@
 package com.atguigu.gmall.product.controller;
 
-import com.atguigu.gmall.product.common.result.Result;
+import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.SkuInfo;
 import com.atguigu.gmall.product.service.SkuService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

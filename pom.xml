@@ -10,7 +10,7 @@
         <module>service</module>
         <module>web</module>
         <module>service-client</module>
-        <module>service-list</module>
+        <module>server-gateway</module>
     </modules>
 
     <!-- Spring 包的版本控制  2.2.1.RELEASE 搭配 Spring-cloud 的 Hoxton.RELEASE -->

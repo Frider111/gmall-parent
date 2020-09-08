@@ -42,8 +42,6 @@ public class Test111 {
         System.out.println("index = " + index);
         boolean b = elasticsearchRestTemplate.putMapping(Goods.class);
         System.out.println("b = " + b);
-
-
     }
 
 

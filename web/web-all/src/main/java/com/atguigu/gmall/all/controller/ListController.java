@@ -3,8 +3,7 @@ package com.atguigu.gmall.all.controller;
 import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.model.list.SearchAttr;
 import com.atguigu.gmall.model.list.SearchParam;
-import com.atguigu.gmall.model.list.SearchResponseVo;
-import com.atguigu.gmall.product.common.result.Result;
+import com.atguigu.gmall.common.result.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +33,7 @@ public class ListController {
 
         Map<String, String> orderMap = getOrderMap(searchParam);
         Result<Map> result = listFeignClient.list(searchParam);
+//        SearchResponseVo data = (SearchResponseVo) result.getData();
         model.addAllAttributes(result.getData());
         String urlParam = getUrlParam(searchParam);
         model.addAttribute("urlParam", urlParam);

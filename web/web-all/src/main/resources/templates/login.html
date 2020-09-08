@@ -116,11 +116,14 @@
                 login.login(this.user).then(response => {
                     debugger
                     if (response.data.code == 200) {
-                        //把token存在cookie中、也可以放在localStorage中
+                        // 把token存在cookie中、也可以放在localStorage中
+						// 0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0
                         auth.setToken(response.data.data.token)
                         auth.setUserInfo(JSON.stringify(response.data.data))
 
+						console.log(response.data.data)
                         console.log("originUrl:"+this.originUrl);
+
                         if(this.originUrl == ''){
                             window.location.href="http://www.gmall.com/index.html"
                             return ;
@@ -130,7 +133,6 @@
                     } else {
 						alert(response.data.data.message)
 					}
-
                 })
             }
         }

@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.17.1:8848
+      config:
+        server-addr: 192.168.17.1:8848
+  application:
+      name: API-GATEWAY

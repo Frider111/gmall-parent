@@ -1,7 +1,7 @@
 package com.atguigu.gmall.product.controller;
 
-import com.atguigu.gmall.product.common.result.Result;
-import com.atguigu.gmall.product.common.util.FastdfsUtil;
+import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.common.util.FastdfsUtil;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

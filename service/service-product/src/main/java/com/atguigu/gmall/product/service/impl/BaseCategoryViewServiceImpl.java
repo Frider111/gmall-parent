@@ -1,8 +1,8 @@
 package com.atguigu.gmall.product.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.atguigu.gmall.product.common.aspect.GmallCache;
-import com.atguigu.gmall.product.common.time.GmallChangeTime;
+import com.atguigu.gmall.common.aspect.GmallCache;
+import com.atguigu.gmall.common.time.GmallChangeTime;
 import com.atguigu.gmall.product.mapper.BaseCategoryViewMapper;
 import com.atguigu.gmall.model.product.BaseCategoryView;
 import com.atguigu.gmall.product.service.BaseCategoryViewService;
@@ -79,7 +79,7 @@ public class BaseCategoryViewServiceImpl implements BaseCategoryViewService {
                 baseCategory2s.stream().forEach(baseCategoryView3 -> {
                     JSONObject jsonObject3 = new JSONObject();
                     // 添加 category3Id 数据
-                    jsonObject3.put("categoryId",category2Id);
+                    jsonObject3.put("categoryId",baseCategoryView3.getCategory3Id());
                     // 添加 categoryName 数据
                     jsonObject3.put("categoryName",baseCategoryView3.getCategory3Name());
                     categoryChild2.add(jsonObject3);

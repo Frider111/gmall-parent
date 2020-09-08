@@ -45,10 +45,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -291,6 +288,7 @@ public class ListServiceImpl implements ListService {
         }
         // 设置分页数据
         searchSourceBuilder.size(pageSize);
+//        searchSourceBuilder.size(4);
         searchSourceBuilder.from((pageNo-1)*pageSize);
         // 封装bool 查询到query查询
         searchSourceBuilder.query(boolQueryBuilder);
@@ -324,8 +322,15 @@ public class ListServiceImpl implements ListService {
             }
 
             searchResponseVo.getGoodsList().add(goods);
-
         }
+//        Set<SearchResponseTmVo> searchResponseTmVos = new HashSet<>();
+//        for (Goods goods : searchResponseVo.getGoodsList()) {
+//            SearchResponseTmVo searchResponseTmVo = new SearchResponseTmVo();
+//            searchResponseTmVo.setTmId(goods.getTmId());
+//            searchResponseTmVo.setTmName(goods.getTmName());
+//            searchResponseTmVo.setTmLogoUrl(goods.getTmLogoUrl());
+//            searchResponseTmVos.add(searchResponseTmVo) ;
+//        }
 
         // 品牌聚合查询数据
         Aggregation tmIdAgg1 = searchResponse.getAggregations().get("tmIdAgg");
@@ -342,7 +347,7 @@ public class ListServiceImpl implements ListService {
             return searchResponseTmVo;
         }).collect(Collectors.toList());
         // 品牌数据封装到返回类
-        searchResponseVo.setTrademarkList(searchResponseTmVos);
+        searchResponseVo.getTrademarkList().addAll(searchResponseTmVos);
         // 属性聚合查询数据
         ParsedNested parsedNested = (ParsedNested) searchResponse.getAggregations().get("attrAgg");
 

@@ -2,7 +2,7 @@ package com.atguigu.gmall.product.client;
 
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.product.client.impl.ProductFeignClientFallback;
-import com.atguigu.gmall.product.common.result.Result;
+import com.atguigu.gmall.common.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

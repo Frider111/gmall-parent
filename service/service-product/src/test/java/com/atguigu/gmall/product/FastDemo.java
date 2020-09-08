@@ -1,6 +1,6 @@
 package com.atguigu.gmall.product;
 
-import com.atguigu.gmall.product.common.util.FastdfsUtil;
+import com.atguigu.gmall.common.util.FastdfsUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
