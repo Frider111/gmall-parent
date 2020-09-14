@@ -40,34 +40,35 @@ public class CartController {
     @GetMapping("addCart.html")
     public String addCart(Long skuId,Integer skuNum) throws IOException {
 
+        // 设置容器
         Context context = new Context();
-
+        // 获取 skuinfo 数据 并放在 context 容器
         SkuInfo skuInfo = productFeignClient.getSkuInfo(skuId);
-
+        // 设置 skuinfo 属性值
         context.setVariable("skuInfo", skuInfo);
-
+        // 定位到 static 路径
         String path = this.getClass().getClassLoader().getResource("static").getPath();
-
+        // 封装文件名称
         String cardName = "addCart"+skuId+".html";
-
+        // 设置存放的文件夹
         File cartFile = new File(path+"/cart") ;
-
+        // 不存在文件夹 就创建一个
         if (!cartFile.exists()){
             cartFile.mkdir() ;
         }
-
+        // 字符输出流
         FileWriter fileWriter = new FileWriter(new File(cartFile,cardName));
-
-        springTemplateEngine.process("cart/addCart.html", context,fileWriter);
-
+        // 远程调用，添加数据到购物车
         cartFeignClient.addToCart(skuId,skuNum);
-
+        // 按照 cart/addCart.html 模板 生成数据 填充数据
+        springTemplateEngine.process("cart/addCart.html", context,fileWriter);
+        // 返回到添加的静态页面
         return "redirect:http://cart.gmall.com/cart/"+cardName;
     }
 
     @GetMapping("cart.html")
     public String cart() {
-
+        // 去购物车页面
         return "cart/index" ;
     }
 

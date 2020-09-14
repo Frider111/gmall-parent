@@ -9,3 +9,8 @@ spring:
         server-addr: 192.168.17.1:8848
   profiles:
     active: dev
+logging:
+  level:
+    com:
+      alibaba:
+        nacos: warn

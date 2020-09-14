@@ -330,7 +330,6 @@
 
             submitOrder() {
                 seckill.submitOrder(this.order).then(response => {
-                    debugger
                     if (response.data.code == 200) {
 						window.location.href = 'http://payment.gmall.com/pay.html?orderId=' + response.data.data
 					} else {
@@ -341,7 +340,6 @@
             },
 
             selectAddress(addressId) {
-                debugger
                 this.userAddressList.forEach((item) => {
                     if(item.id == addressId) {
                         item.selected = 1

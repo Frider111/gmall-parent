@@ -1,4 +1,3 @@
-
 var request = axios.create({
     baseURL:'http://api.gmall.com',
     timeout:10000

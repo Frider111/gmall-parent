@@ -1,5 +1,7 @@
 package com.atguigu.gmall.product.service.impl;
 
+import com.atguigu.gmall.common.const1.MqConst;
+import com.atguigu.gmall.common.service.RabbitService;
 import com.atguigu.gmall.list.client.ListFeignClient;
 import com.atguigu.gmall.common.aspect.GmallCache;
 import com.atguigu.gmall.common.aspect.GmallParam;
@@ -46,6 +48,9 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
 
     @Autowired
     ListFeignClient listFeignClient;
+
+    @Autowired
+    RabbitService rabbitService ;
 
     /**
      * 根据 skuInfo 添加数据
@@ -103,8 +108,10 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
 
         int i = this.baseMapper.onSale(skuId);
         if (i > 0 ){
-            listFeignClient.onSale(skuId);
+//            listFeignClient.onSale(skuId);
+            rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_GOODS, MqConst.ROUTING_GOODS_UPPER, skuId);
             return true;
+
         }
         return false;
     }
@@ -118,7 +125,8 @@ public class SkuServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo> implemen
     public boolean cancelSale(Long skuId) {
         int i = this.baseMapper.cancelSale(skuId);
         if (i > 0 ){
-            listFeignClient.cancelSale(skuId);
+//            listFeignClient.cancelSale(skuId);
+            rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_GOODS, MqConst.ROUTING_GOODS_LOWER, skuId);
             return true;
         }
         return false;

@@ -31,6 +31,14 @@ spring:
           uri: lb://SERVICE-ORDER
           predicates:
             - Path=/*/order/**
+        - id: service-activity
+          uri: lb://SERVICE-ACTIVITY
+          predicates:
+          - Path=/*/activity/** # 路径匹配
+        - id: service-payment
+          uri: lb://SERVICE-PAYMENT
+          predicates:
+            - Path=/*/payment/**
         - id: service-cart
           uri: lb://SERVICE-CART
           predicates:
@@ -80,6 +88,8 @@ spring:
           uri: lb://WEB-ALL
           predicates:
             - Host=activity.gmall.com
+          filters:
+            - Login
 # 验证url 用户如果未登录的情况下，不允许访问的哪些控制！
 authUrls:
   url: trade.html,myOrder.html

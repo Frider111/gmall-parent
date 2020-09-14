@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="UTF-8">
@@ -116,7 +116,7 @@
 													<tr v-for="(detail,index) in order.orderDetailList" :key="detail.id" v-if="index == 0">
 														<td width="60%">
 															<div class="typographic"><img :src="detail.imgUrl" style="height: 100px;"/>
-																<a href="#" class="block-text">{{detail.skuName}}</a><span>x{{detail.skuNum }}</span>
+																<a href="#" @click="gotoSKuItem(detail.skuId)" class="block-text">{{detail.skuName}}</a><span>x{{detail.skuNum }}</span>
 																<ul class="unstyled list-inline">
 																	<li>申请售后</li>
 																</ul>
@@ -145,7 +145,7 @@
 													<tr v-for="(detail,index) in order.orderDetailList" :key="detail.id" v-if="index > 0">
 														<td width="50%">
 															<div class="typographic"><img :src="detail.imgUrl" style="height: 100px;"/>
-																<a href="#" class="block-text">{{detail.skuName}}</a><span>x{{detail.skuNum }}</span>
+																<a @click="gotoSKuItem(detail.skuId)" class="block-text">{{detail.skuName}}</a><span>x{{detail.skuNum}}</span>
 																<!--<ul class="unstyled list-inline">-->
 																	<!--<li>申请售后</li>-->
 																<!--</ul>-->
@@ -450,7 +450,12 @@
                 trade.getOrderPageList(page,5).then(response => {
                     this.data = response.data.data
                 })
-            }
+            },
+
+			gotoSKuItem(skuId)
+			{
+				window.location = "http://item.gmall.com/"+skuId+".html" ;
+			}
         }
 	})
 </script>

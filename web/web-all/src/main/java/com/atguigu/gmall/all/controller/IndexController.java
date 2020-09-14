@@ -47,13 +47,13 @@ public class IndexController {
     @ResponseBody
     @GetMapping("/createHtml")
     public Result createHtml() throws IOException {
-
+        // 创建静态页面
         Result baseCategoryList = productFeignClient.getBaseCategoryList();
-
+        // 数据容器
         Context context = new Context();
-
+        // 设置容器
         context.setVariable("list", baseCategoryList.getData());
-
+        //
         String classPath = this.getClass().getClassLoader().getResource("templates").getPath();
 
         FileWriter write = new FileWriter(classPath+"\\index1.html");

@@ -1,0 +1,22 @@
+server:
+  port: 7011
+
+spring:
+  redis:
+    database: 0
+    port: 6379
+    host: 192.168.17.111
+  rabbitmq:
+    host: 192.168.17.111
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    #开启可退机制
+    publisher-returns: true
+    publisher-confirms: true
+    listener:
+      simple:
+        #        设置手动确认
+        acknowledge-mode: manual
+        prefetch: 1

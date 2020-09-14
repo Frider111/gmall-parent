@@ -26,4 +26,12 @@ public class PaymentController {
         return "payment/pay" ;
     }
 
+//    http://payment.gmall.com/pay/success.html
+
+    @GetMapping("pay/success.html")
+    public String paySuccess(){
+
+        return "payment/success" ;
+    }
+
 }

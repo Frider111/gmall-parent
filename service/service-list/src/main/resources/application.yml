@@ -14,6 +14,20 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.17.111:9200
+  rabbitmq:
+    host: 192.168.17.111
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    #开启可退机制
+    publisher-returns: true
+    publisher-confirms: true
+    listener:
+      simple:
+        #        设置手动确认
+        acknowledge-mode: manual
+        prefetch: 1
 feign:
   client:
     config:

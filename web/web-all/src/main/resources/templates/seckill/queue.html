@@ -172,6 +172,7 @@
 </div>
 <!--页面底部END-->
 <script src="/js/api/seckill.js"></script>
+
 <script th:inline="javascript">
     var item = new Vue({
         el: '#item',
@@ -206,7 +207,6 @@
         methods: {
             saveOrder() {
                 seckill.seckillOrder(this.skuId, this.skuIdStr).then(response => {
-                    debugger
                     console.log(JSON.stringify(response))
                     if(response.data.code == 200) {
                         this.isCheckOrder = true
@@ -222,7 +222,7 @@
                 if(!this.isCheckOrder) return
 
                 seckill.checkOrder(this.skuId).then(response => {
-                     debugger
+
                     this.data = response.data.data
                     this.code = response.data.code
                     console.log(JSON.stringify(this.data))

@@ -2,7 +2,7 @@ package com.atguigu.gmall.all.controller;
 
 import com.atguigu.gmall.common.execption.GmallExecption;
 import com.atguigu.gmall.common.result.Result;
-import com.atguigu.gmall.item.client.impl.ItemFeignClient;
+import com.atguigu.gmall.item.client.ItemFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
